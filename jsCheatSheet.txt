@@ -1,0 +1,89 @@
+** JavaScript Cheat Sheet **
+
+- JS has no concept of input or output
+----- Designed to run as a scripting language in a host environment
+
+- Multi-paradigm, dynamic language with types and operators, standard built-in objects, and methods
+
+- TYPES
+ ---- Number
+ ---- String 
+ ---- Boolean
+ ---- Function
+ ---- Object
+   - Function
+   - Array
+   - Date
+   - RegExp
+ ---- Symbol
+ ---- null
+ ---- undefined
+
+- NUMBERS
+ ---- No integers in JS
+ ---- Built-in object called Math
+         Math.sin(3.5);
+         var circumfrence = 2 * Math.PI * r;
+ ---- Can convert a string to an integer using built-in parseInt() function (base for the conversion as optional second argument)
+         parseInt('123', 10); // 123
+         parseInt('010', 10); // 10
+ ---- Can parse floating point numbers using the built-in parseFloat() function
+ ---- Can use the unary + operator to convert values to numbers:
+         + '42'; // 42
+
+- STRINGS
+ ---- If you want to represent a single character, you just use a string consisting of that single character
+ ---- To find the length of a string, access its length property:
+         'hello'.length; // 5
+ ---- Can use strings like objects
+         'hello'.charAt(0); // "h"
+         'hello, world'.replace('world', 'mars'); // "hello, mars"
+         'hello'.toUpperCase(); // "HELLO"
+
+- NULL VS UNDEFINED
+ ---- null is a value that indicates a deliberate non-value
+ ---- undefined is a value of type undefined that indicates an uninitialized value
+
+- BOOLEANS
+ ---- JS has a boolean type
+ ---- Possible values = true and false
+ ---- Any value can be converted to a boolean according to the following rules:
+         1.  false, 0, empty strings (""), NaN, null, and undefined all become false
+         2.  All other values become true
+      - Can perform this conversion explicitly usinf the Boolean() function:
+         Boolean(' '); // false
+         Boolean(234); // true
+
+- VARIABLES
+ ---- New variables in JS are declared using one of 3 keywords:
+        let
+        const
+        var
+ ---- let
+      - Allows you to declare block-level variables
+      - The declared variable is available from the block it is enclosed in
+      let a;
+      let name = 'Simon';
+      - The following is an example of scope with a variable declared with let:
+      // myLetVariable is *not* visible out here
+      for (let myLetVariable = 0; meLetVariable < 5; myLetVariable++) {
+       //myLetVariable is only visible in here
+      }
+      // myLetVariable is *not* visible out here
+ ---- const
+      - Allows you to declare variables whose values are never intended to change
+      - The variable is available from the block it is declared in
+      const Pi = 3.14; // variable Pi is set
+      Pi = 1; // will throw an error because you cannot change a constant variable
+ ---- var
+      - Most common declarative keyword
+      - Does not have the restrictions that the other two keywords have
+      - A variable declared with the var keyword is available from the function it is declared in
+      var a;
+      var name = 'Simon';
+      - An example of scope with a variable declared with var:
+      // myVarVariable *is* visible out here
+      for (var myVarVariable = 0; myVarVariable < 5; myVarVariable++) {
+       // myVarVariable is visible to the whole function
+      }
+      // myVarVariable *is* visible out here
