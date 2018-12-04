@@ -87,3 +87,295 @@
        // myVarVariable is visible to the whole function
       }
       // myVarVariable *is* visible out here
+ ---- If you declarea variable without assigning any value to it, its type is undefined
+
+- OPERATORS
+ ---- JavaScript's numeric operators are +, -, *, /, and % which is the remainder operator (not same as modulo)
+ ---- += and -= exist
+ ---- ++ and -- increment and decrement
+ ---- + can do string concatenation
+ ---- If you add a string to a number everything is converted to string
+      - Adding an empty string to something is a useful way of convertinf it to a string itself
+ ---- <, >, <=, >= for comparison
+ ---- The double-equals operator performs type coercion if you give it diff types
+      123 == '123'; // true
+      1 == true; // true
+      - To avoid this, use the triple-equals operator
+        123 === '123'; // false
+        1 === true; // false
+ ---- There are also != and !== operators
+ ---- JS aslo has bitwise operations
+
+- CONTROL STRUCTURES
+ ---- JS has similar control structures to other languages in C family
+ ---- Conditional statements are supported by if and else
+      var name = 'kittens';
+      if (name == 'puppies') {
+          name += 'woof';
+      } else if (name == 'kittens') {
+          name+= 'meow';
+      } else {
+          name += '!';
+      }
+      name == 'kittens meow';
+ ---- JS has while and do-while loops
+      - while = basic looping
+      - do-while = you wish to ensure that the body of the loop is executed at least once
+        while (true) {
+            // an infinite loop!
+        }
+        var input;
+        do {
+            input = get_input();
+        } while (inputIsNotValid(input));
+ ---- JavaScript's for loop is the same as in C
+       for (var i = 0; i<5; i++) {
+           /// Will execute 5 times
+        }
+ ---- for...of
+       for (let value of array) {
+           // do something with value
+        }
+ ---- for...in
+       for (let property in object) {
+         // do something with object property
+       }
+ ---- swith statement can be used for multiple branchs based on a number or string
+       switch (action) {
+           case 'draw':
+               drawIt();
+               break;
+           case 'eat':
+               eatIt();
+               break;
+           default:
+               doNothing();
+        }
+
+- OBJECTS
+ ---- JS objects can be thought of as name-value pairs (like dicts in python, hash tables in C++)
+ ---- 2 basic ways to create an empty objects: 
+      (1) var obj = new Object();
+      (2) var obj = {};
+ ---- Example: 
+      var obj = {
+          name: 'Carrot',
+          for: 'Max', //'for' is a reserved word, use '_for' instead.
+          details: {
+              color: 'orange',
+              size: 12
+           }
+       };
+ ---- Attribute access can be chained together
+      obj.details.color; // orange
+      obj['details']['size']; // 12
+ ---- The following example creates an object prototype, Person and an instance of that prototype, you
+      function Person(name, age) {
+          this.name = name;
+          this.age = age;
+      }
+      // Define an object
+      var you = new Person('You', 24);
+      // We are creating a new person names "you" aged 24
+
+- ARRAYS
+ ---- Arrays in JS are a special type of object 
+      - They work much like regular objects, but they have a property called 'length'
+        - Always one more than they highest index
+ ---- One way of creating
+      var a = new Array()
+      a[0] = 'dog';
+      a[1] = 'cat';
+      a[2] = 'hen';
+      a.length; // 3
+ ---- A more convenient way:
+      var a = ['dog', 'cat', 'hen']
+      a.length; //3
+ ---- Note that array.length isn't always the # of items in the array
+      var a = ['dog', 'cat', 'hen'];
+      a[100] = 'fox';
+      a.length; // 101
+ ---- Array methods
+      - a.toString()
+      - a.toLocalString()
+      - a.concat(item1[, item2[, ...[, itemN]]])
+          - returns a new array with the items added to it
+      - a.join(sep)
+      - a.pop()
+      - a.push(item1,...,itemN)
+      - a.reverse()
+      - a.shift()
+      - a.slice(start[, end])
+          - returns a sub array
+      - a.sort([cmpfn])
+          - takes optional comparison function
+      - a.splice(start, delcount[, item1[, ..[, itemN]]])
+      - a.unshift(item1[, item2[, ...[, itemN]]])
+
+- FUNCTIONS
+      function add(x,y) {
+        var total = x + y;
+        return total; 
+       }
+ ---- Functions have access to an additional ariable inside their body caled arguments
+      - An array-like object holding all of the values passed to the function
+      function add() {
+         var sum = 0;
+         for (var i=0, j=arguments.lengths; i<j; i++) {
+           sum += arguments[i];
+         }
+         return sum;
+       }
+       add (2, 3, 4, 5); // 14
+       
+       function avg() {
+          var sum = 0;
+          for (var i=0, j=arguments.length; i<j, i++) {
+             sum += arguments[i];
+          }
+          return sum/ arguments.length;
+       } 
+       avg(2,3,4,5); //3.5
+ ---- Rest Parameter Syntax
+      - Used in function parameter lists with the format: ...variable
+      - Will include within that variable the entire list of uncaptured arguments that the function was calledwith
+      function avg(...args) {
+        var sum = 0;
+        for let value of args) {
+          sum += value;
+        }
+        return sum / args.length;
+      }
+      avg(2, 3, 4, 5); //3.5
+ ---- Arrays
+      - JS lets you call a function with an arbitrary array of arguments, using the apply() method
+      avg.apply(null, [2,3,4,5]); //3.5
+ ---- Anonymous Functions
+      var ag = function() {
+        var sum = 0;
+        for (var i=0,j=arguments.length; i<j; i++) {
+          sum += arguments[i];
+        }
+        return sum / arguments.length;
+       };
+      - Semantically equivalent to the function avg() form
+      - Lets you put a full function anywhere that you would normally put an expression
+      - Here's a way of 'hiding' some local variables:
+
+        var a = 1;
+        var b = 2;
+
+        (function() {
+          var b = 3;
+          a += b;
+        }) ();
+
+        a; // 4
+        b; // 2
+
+- CUSTOM OBJECTS
+ ---- Objects are collections of data and methods that operate on that data
+ ---- JS uses functions as classes
+
+      function makePerson(first, last) {
+        return {
+          first: first,
+          last: last
+        };
+       }
+       function personFullName(person) {
+         return person.first + ' ' + person.last;
+       }
+       function personFullNameReversed(person) {
+         return person.last + ', ' + person.first;
+       }
+       
+       var s = makePerson('Simon','Willison')
+       personFullName(s); // "Simaon Willison"
+       personFullNameReversed(s); // "Willison, Simon"
+   
+       - This works but is really ugly
+ ---- We really need a way to attach a function to an object
+      
+      function makePerson(first,last) {
+        return {
+          first: first,
+          last: last,
+          fullName: function() {
+            return this.first + ' ' + this.last;
+          },
+          fullNameReversed: function() { 
+            return this.last + ', ' + this.first;
+          }
+         };
+        }
+        var s = makePerson('Simon', 'Willison');
+        s.fullName(); // "Simon Willison"
+        s.fullNameReversed(); // "Willison, Simon"
+ ---- Even better, use Person.prototype
+      - Person.prototype is an object shared by all instances of Person
+        - Forms part of a lookup chain
+        - Any time you try to access a property of Person that isn't set, JS will check Person.prototype to see if that property exists there instead
+        
+        function Person(first, last) {
+          this.first = first;
+          this.last = last;
+        }
+        Person.prototype.fullName = function() {
+          return this.first + ' ' + this.last;
+        };
+        Person.prototype.fullNameReversed = function() {
+          return this.last + ', ' + this.first;
+        };
+
+        - JS lets you modify something's prototype at any time in your program, which means you can add extra methods to existing objects at runtime:
+          var s = new Person('Simon', 'Willison');
+          s.firstNameCaps(); // TypeError on line 1: s.firstNameCaps is not a function
+          
+          Person.prototype.firstNameCaps = function() {
+            return this.first.toUpperCase();
+          };
+          s.firstNameCaps(); // "SIMON"
+       
+        - You can also add things to the prototype of built-in JavaScript objects
+ ---- Back to apply()
+      - The first argument to apply() is the object that should be treated as 'this'
+      - apply() has a sister function named call
+        - Lets you set this but takes an expanded argument list as opposed to an array
+
+- INNER FUNCTIONS
+ ---- JS function declarations are allowed inside other functions
+ ---- Nested functions can access variables in their parent function's scope:
+      function parentFunc() {
+        var a = 1;
+        
+        function nestedFunc() {
+          var b = 4; //parentFunc can't use this
+          return a + b;
+        }
+        return nestedFunc(); // 5
+       }
+
+- CLOSURES
+      function makeAdder(a) {
+        return function(b) {
+          return a + b;
+        };
+      }
+      var x = makeAdder(5);
+      var y = makeAdder(20);
+      x(6);
+      x(7);
+ ---- makeAdder() function creates new 'Adder' functions
+      - each of which, when called with one argument, adds it to the argument that it was created with
+ ---- Same thing that happens with the inner functions: a function defined inside another function has access to the outer functions variables
+      - Only difference is that the outser function has returned
+        - Local variables still exist
+        - There are 2 different "copies" of makeAdder()'s local variables
+          - One in which a is 5 and one in which a is 20
+ ---- Result of that function calls is as follows:
+      x(6); // returns 11
+      x(7); // returns 27
+ ---- A closure is the combination of a function and the scope object in which it was created
+ ---- Closures let you save state
+      - Can often be used in plce of objects
